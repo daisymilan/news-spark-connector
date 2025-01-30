@@ -13,12 +13,19 @@ export const NewsForm = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    
+    // Prevent empty submissions
     if (!topic.trim()) {
       toast({
         title: "Error",
         description: "Please enter a topic",
         variant: "destructive",
       });
+      return;
+    }
+
+    // Prevent multiple submissions
+    if (isLoading) {
       return;
     }
 
@@ -29,6 +36,7 @@ export const NewsForm = () => {
         title: "Request Sent",
         description: "Your request has been sent to the server. Note that due to security settings, we cannot confirm if it was processed successfully.",
       });
+      // Clear the form after successful submission
       setTopic("");
     } catch (error) {
       toast({

@@ -9,6 +9,7 @@ export const sendToWebhook = async (topic: string) => {
       body: JSON.stringify({
         topic,
         timestamp: new Date().toISOString(),
+        requestId: Math.random().toString(36).substring(7), // Add unique identifier
       }),
     });
 

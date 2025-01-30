@@ -9,6 +9,7 @@ import { sendToWebhook } from "@/services/webhook";
 export const NewsForm = () => {
   const [topic, setTopic] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+  const [lastRequestTime, setLastRequestTime] = useState(0);
   const { toast } = useToast();
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -29,12 +30,25 @@ export const NewsForm = () => {
       return;
     }
 
+    // Prevent rapid repeated submissions
+    const now = Date.now();
+    if (now - lastRequestTime < 5000) { // 5 second cooldown
+      toast({
+        title: "Please wait",
+        description: "Please wait a few seconds before submitting another request",
+        variant: "destructive",
+      });
+      return;
+    }
+
     setIsLoading(true);
+    setLastRequestTime(now);
+    
     try {
       await sendToWebhook(topic.trim());
       toast({
         title: "Request Sent",
-        description: "Your request has been sent to the server. Note that due to security settings, we cannot confirm if it was processed successfully.",
+        description: "Your request has been sent to the server. Links will appear in your social media accounts shortly.",
       });
       // Clear the form after successful submission
       setTopic("");

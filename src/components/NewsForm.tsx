@@ -26,14 +26,14 @@ export const NewsForm = () => {
     try {
       await sendToWebhook(topic.trim());
       toast({
-        title: "Success!",
-        description: "Your content workflow has been initiated.",
+        title: "Request Sent",
+        description: "Your request has been sent to the server. Note that due to security settings, we cannot confirm if it was processed successfully.",
       });
       setTopic("");
     } catch (error) {
       toast({
-        title: "Error",
-        description: "Failed to process your request. Please try again.",
+        title: "Connection Error",
+        description: error instanceof Error ? error.message : "Failed to connect to the server. Please try again later.",
         variant: "destructive",
       });
     } finally {

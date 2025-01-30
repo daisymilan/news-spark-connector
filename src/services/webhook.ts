@@ -7,7 +7,7 @@ export const sendToWebhook = async (topic: string) => {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        topic,
+        topic: `<a href="${topic}">${topic}</a>`,
         timestamp: new Date().toISOString(),
         requestId: Math.random().toString(36).substring(7), // Add unique identifier
       }),

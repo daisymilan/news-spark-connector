@@ -68,14 +68,14 @@ export const NewsForm = () => {
       <CardHeader>
         <CardTitle>Content Pipeline</CardTitle>
         <CardDescription>
-          Enter a topic to generate content across your social media platforms
+          Enter a news topic to generate content across your social media platforms
         </CardDescription>
       </CardHeader>
       <CardContent>
         <form onSubmit={handleSubmit} className="space-y-4">
           <div className="space-y-2">
             <Input
-              placeholder="Enter news topic..."
+              placeholder="Enter link..."
               value={topic}
               onChange={(e) => setTopic(e.target.value)}
               disabled={isLoading}
